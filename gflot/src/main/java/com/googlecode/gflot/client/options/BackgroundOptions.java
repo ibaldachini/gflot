@@ -44,6 +44,10 @@ public class BackgroundOptions
 
     private static final String IMAGE_URL_KEY = "imageurl";
     private static final String ALPHA_KEY = "alpha";
+    private static final String TEXT_KEY = "text";
+    private static final String FONT_KEY = "font";
+    private static final String FILLSTYLE_KEY = "fillstyle";
+    private static final String YOFFSET_KEY = "yoffset";
 
     protected BackgroundOptions()
     {
@@ -98,6 +102,110 @@ public class BackgroundOptions
     public final BackgroundOptions clearAlpha()
     {
         clear( ALPHA_KEY );
+        return this;
+    }
+
+    /**
+     * Set background text
+     */
+    public final BackgroundOptions setText( String text )
+    {
+        put( TEXT_KEY, text );
+        return this;
+    }
+
+    /**
+     * @return the background text
+     */
+    public final String getText()
+    {
+        return getString( TEXT_KEY );
+    }
+
+    /**
+     * Clear the background text
+     */
+    public final BackgroundOptions clearText()
+    {
+        clear( TEXT_KEY );
+        return this;
+    }
+
+    /**
+     * Set background text font
+     */
+    public final BackgroundOptions setFont( String font )
+    {
+        put( FONT_KEY, font );
+        return this;
+    }
+
+    /**
+     * @return the background text font
+     */
+    public final String getFont()
+    {
+        return getString( FONT_KEY );
+    }
+
+    /**
+     * Clear the background text font
+     */
+    public final BackgroundOptions clearFont()
+    {
+        clear( FONT_KEY );
+        return this;
+    }
+
+    /**
+     * Set background text filStyle
+     */
+    public final BackgroundOptions setFillStyle( String fillStyle )
+    {
+        put( FILLSTYLE_KEY, fillStyle );
+        return this;
+    }
+
+    /**
+     * @return the background text filStyle
+     */
+    public final String getFillStyle()
+    {
+        return getString( FILLSTYLE_KEY );
+    }
+
+    /**
+     * Clear the background text filStyle
+     */
+    public final BackgroundOptions clearFillStyle()
+    {
+        clear( FILLSTYLE_KEY );
+        return this;
+    }
+
+    /**
+     * Set background text y offset
+     */
+    public final BackgroundOptions setYOffset( Integer yOffset )
+    {
+        put( YOFFSET_KEY, yOffset );
+        return this;
+    }
+
+    /**
+     * @return the background text y offset
+     */
+    public final Integer getYOffset()
+    {
+        return getInteger( YOFFSET_KEY );
+    }
+
+    /**
+     * Clear the background text y offset
+     */
+    public final BackgroundOptions clearYOffset()
+    {
+        clear( YOFFSET_KEY );
         return this;
     }
 }

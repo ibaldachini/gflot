@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 naBerTech
+ * Copyright (c) 2015 naBerTech
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -27,15 +27,40 @@
  * @author Igor Baldachini
  */
 (function ($){
-	var pluginName = "background", pluginVersion = "1.0";
+	var pluginName = "background", pluginVersion = "1.1";
 	var options ={
 		grid:{
 			background:{
 				imageurl: null,
+				text: null,
+				font: "24px Arial",
+				fillstyle: "#303030",
+				yoffset: 0,
 				alpha: null
 			}
 		}
 	};
+	
+	var getTextHeight = function(font) {
+		var text = $('<span>Hg</span>').css({ fontFamily: font });
+		var block = $('<div style="display: inline-block; width: 1px; height: 0px;"></div>');
+		var div = $('<div></div>');
+		div.append(text, block);
+		var body = $('body');
+		body.append(div);
+		try {
+			var result = {};
+			block.css({ verticalAlign: 'baseline' });
+			result.ascent = block.offset().top - text.offset().top;
+			block.css({ verticalAlign: 'bottom' });
+			result.height = block.offset().top - text.offset().top;
+			result.descent = result.height - result.ascent;
+		} finally {
+			div.remove();
+		}
+		return result;
+	};
+
 	function init(plot){
 		plot.hooks.draw.push(function (plot, ctx) {
 			var offset = plot.getPlotOffset();
@@ -50,6 +75,13 @@
 					ctx.globalAlpha = opt.grid.background.alpha;
 				ctx.drawImage(img, 0, 0, plot.width(), plot.height());
 				ctx.globalAlpha = alpha;
+			}
+			if (opt.grid.background.text != null){
+				ctx.font = opt.grid.background.font;
+				ctx.fillStyle = opt.grid.background.fillstyle;
+				var w = ctx.measureText(opt.grid.background.text).width;
+				var h = getTextHeight(ctx.font);
+				ctx.fillText(opt.grid.background.text, plot.width() - w - 6, h.height + 6 + opt.grid.background.yoffset);
 			}
 			ctx.restore();
 		});
